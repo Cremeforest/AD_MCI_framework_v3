@@ -1,0 +1,21 @@
+name: ad-mci-framework
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.11
+  - numpy
+  - pandas
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - pyyaml
+  - lifelines
+  - scikit-survival
+  - jupyter
+  - notebook
+  - ipykernel
+  - pip
+  - pytorch

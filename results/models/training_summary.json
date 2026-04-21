@@ -1,0 +1,29 @@
+{
+  "device": "cuda",
+  "n_train": 807,
+  "n_val": 173,
+  "n_test": 174,
+  "feature_dims": {
+    "baseline": 6,
+    "structure": 5,
+    "state": 5,
+    "dynamics": 8
+  },
+  "best_epoch": 26,
+  "best_val_c_index": 0.8013310676862079,
+  "best_val_loss": 4.812764644622803,
+  "test_metrics": {
+    "total_loss": 4.735576152801514,
+    "survival_loss": 3.962061643600464,
+    "event3y_loss": 0.7489082217216492,
+    "highrisk_loss": 0.7981202602386475,
+    "c_index": 0.7923580453645913,
+    "event3y_acc": 0.7298850417137146,
+    "highrisk_acc": 0.6896551847457886
+  },
+  "positive_rates": {
+    "train_event": 0.3828996419906616,
+    "train_event_3y": 0.2936803102493286,
+    "train_highrisk": 0.24659231305122375
+  }
+}

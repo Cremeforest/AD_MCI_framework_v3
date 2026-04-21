@@ -1,0 +1,5 @@
+Model,Representation type,Test C-index
+Cox proportional hazards,Flat clinical feature matrix,0.817
+Random survival forest,Flat clinical feature matrix,0.811
+DeepSurv,Flat clinical feature matrix,0.811
+Proposed modular framework,Availability-aware modular representation,0.792

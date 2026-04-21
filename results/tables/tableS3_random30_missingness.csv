@@ -1,0 +1,5 @@
+Model,Full-data C-index,Random-30%-missing C-index,Delta vs full
+Cox proportional hazards,0.817,0.7949,-0.0221
+Random survival forest,0.811,0.8010,-0.0100
+DeepSurv,0.811,0.7865,-0.0245
+Proposed modular framework,0.792,0.7807,-0.0113

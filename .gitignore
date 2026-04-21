@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VS Code / OS
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Environments
+.venv/
+venv/
+env/
+ENV/
+conda-meta/
+
+# Logs
+*.log
+
+# Data: do NOT upload raw or processed cohort-level data
+data_raw/
+data_processed/
+
+# Large / sensitive result artifacts
+results/embeddings/
+results/models/*.pt
+
+# Keep lightweight summaries if you want
+# (training_log.csv / training_summary.json / preprocessing_stats.json can stay tracked)
+
+# Temporary outputs
+*.tmp
+*.bak

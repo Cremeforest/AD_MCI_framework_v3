@@ -1,0 +1,13 @@
+﻿Metric,Value
+Best validation C-index,0.801
+Test C-index,0.792
+Test total loss,4.736
+Test survival loss,3.962
+Test 3-year event loss,0.749
+Test high-risk loss,0.798
+Test 3-year event accuracy,0.73
+Test high-risk accuracy,0.69
+Best epoch,26.0
+Training set size,807.0
+Validation set size,173.0
+Test set size,174.0

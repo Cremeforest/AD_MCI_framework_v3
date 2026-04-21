@@ -1,0 +1,138 @@
+{
+  "baseline": {
+    "feature_names": [
+      "age",
+      "sex",
+      "education",
+      "APOE4",
+      "baseline_MMSE",
+      "baseline_CDR_global"
+    ],
+    "median": {
+      "age": 73.69199178644764,
+      "sex": 1.0,
+      "education": 16.0,
+      "APOE4": 0.0,
+      "baseline_MMSE": 28.0,
+      "baseline_CDR_global": 0.5
+    },
+    "mean": {
+      "age": 73.40777437666821,
+      "sex": 1.4114002478314747,
+      "education": 16.138785625774474,
+      "APOE4": 0.0,
+      "baseline_MMSE": 27.598513011152416,
+      "baseline_CDR_global": 0.4882280049566295
+    },
+    "std": {
+      "age": 7.526934820346573,
+      "sex": 0.4920874758776897,
+      "education": 2.6879085833704806,
+      "APOE4": 1.0,
+      "baseline_MMSE": 1.8526641842078588,
+      "baseline_CDR_global": 0.10928496932019499
+    }
+  },
+  "structure": {
+    "feature_names": [
+      "n_visits_total",
+      "followup_span_days",
+      "visits_per_year",
+      "median_visit_gap_days",
+      "sd_visit_gap_days"
+    ],
+    "median": {
+      "n_visits_total": 1.0,
+      "followup_span_days": 0.0,
+      "visits_per_year": 1.0006849315068491,
+      "median_visit_gap_days": 182.0,
+      "sd_visit_gap_days": 0.0
+    },
+    "mean": {
+      "n_visits_total": 1.3197026022304832,
+      "followup_span_days": 77.13135068153656,
+      "visits_per_year": 1.320606508122422,
+      "median_visit_gap_days": 179.59231722428748,
+      "sd_visit_gap_days": 4.002829010214236
+    },
+    "std": {
+      "n_visits_total": 0.7788377645410247,
+      "followup_span_days": 98.728961191625,
+      "visits_per_year": 0.779371215064683,
+      "median_visit_gap_days": 38.86984401420608,
+      "sd_visit_gap_days": 22.16908837293829
+    }
+  },
+  "state": {
+    "feature_names": [
+      "state_MMSE",
+      "state_CDR_global",
+      "state_CDRSB",
+      "state_ADAS",
+      "state_FAQ"
+    ],
+    "median": {
+      "state_MMSE": 28.0,
+      "state_CDR_global": 0.5,
+      "state_CDRSB": 1.5,
+      "state_ADAS": 16.33,
+      "state_FAQ": 2.0
+    },
+    "mean": {
+      "state_MMSE": 27.400247831474598,
+      "state_CDR_global": 0.4876084262701363,
+      "state_CDRSB": 1.695167286245353,
+      "state_ADAS": 16.640173482032218,
+      "state_FAQ": 3.543990086741016
+    },
+    "std": {
+      "state_MMSE": 2.186961461535733,
+      "state_CDR_global": 0.18751649002316803,
+      "state_CDRSB": 1.1319463517618054,
+      "state_ADAS": 6.985810700777934,
+      "state_FAQ": 4.414714097198239
+    }
+  },
+  "dynamics": {
+    "feature_names": [
+      "MMSE_delta_6m",
+      "MMSE_delta_12m",
+      "CDRSB_delta_6m",
+      "CDRSB_delta_12m",
+      "ADAS_delta_6m",
+      "ADAS_delta_12m",
+      "FAQ_delta_6m",
+      "FAQ_delta_12m"
+    ],
+    "median": {
+      "MMSE_delta_6m": 0.0,
+      "MMSE_delta_12m": 0.0,
+      "CDRSB_delta_6m": 0.0,
+      "CDRSB_delta_12m": 0.0,
+      "ADAS_delta_6m": 0.0,
+      "ADAS_delta_12m": 0.0,
+      "FAQ_delta_6m": 0.0,
+      "FAQ_delta_12m": 0.0
+    },
+    "mean": {
+      "MMSE_delta_6m": -0.01858736059479554,
+      "MMSE_delta_12m": -0.3444857496902107,
+      "CDRSB_delta_6m": 0.061957868649318466,
+      "CDRSB_delta_12m": 0.19083023543990088,
+      "ADAS_delta_6m": 0.15614622057001243,
+      "ADAS_delta_12m": 0.3933457249070632,
+      "FAQ_delta_6m": 0.17224287484510534,
+      "FAQ_delta_12m": 0.6753407682775713
+    },
+    "std": {
+      "MMSE_delta_6m": 1.4448649360781618,
+      "MMSE_delta_12m": 1.926220613218604,
+      "CDRSB_delta_6m": 0.4608624351132941,
+      "CDRSB_delta_12m": 0.8211215346400524,
+      "ADAS_delta_6m": 2.9062956307584265,
+      "ADAS_delta_12m": 4.352494416000659,
+      "FAQ_delta_6m": 1.4822611751380386,
+      "FAQ_delta_12m": 2.8987326379267566
+    }
+  }
+}
