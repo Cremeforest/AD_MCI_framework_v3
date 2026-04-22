@@ -87,7 +87,7 @@ The repository is organized around a paper-oriented workflow:
   Placeholder for processed data (not included due to access restrictions).
 
 ---
-
+```markdown
 ## Key Scripts (Reproducibility)
 
 The main pipeline can be reproduced using:
