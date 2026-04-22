@@ -88,56 +88,68 @@ The repository is organized around a paper-oriented workflow:
 
 ---
 
-Key Scripts (Reproducibility)
+## Key Scripts (Reproducibility)
 
 The main pipeline consists of the following steps:
 
-Data preprocessing and cohort construction
+**Data preprocessing and cohort construction**
+- `scripts/01_build_adni_cohort.py`
+- `scripts/02_build_labels.py`
+- `scripts/03_build_modules.py`
+- `scripts/04_make_splits.py`
 
-scripts/01_build_adni_cohort.py
-scripts/02_build_labels.py
-scripts/03_build_modules.py
-scripts/04_make_splits.py
+**Baseline model**
+- `scripts/21_run_baseline_deepsurv.py`
 
-Baseline model
+**Modular framework analysis**
+- `scripts/22_run_modular_ablation_v2.py`
 
-scripts/21_run_baseline_deepsurv.py
+---
 
-Modular framework analysis
-
-scripts/22_run_modular_ablation_v2.py
-Outputs
+## Outputs
 
 All results are automatically saved to:
 
-results/figures/ — figures for manuscript and analysis
-results/tables/ — quantitative results and comparisons
-results/models/ — trained model checkpoints
-Results
+- `results/figures/` — figures for manuscript and analysis  
+- `results/tables/` — quantitative results and comparisons  
+- `results/models/` — trained model checkpoints  
+
+---
+
+## Results
 
 The framework demonstrates:
 
-Competitive performance compared to standard survival models (Cox, RSF, DeepSurv)
-Clinically meaningful risk stratification via Kaplan–Meier analysis
-Robustness under simulated missing data conditions
-Consistent performance in external validation (NACC cohort)
-Reproducibility
-All code, figures, and tables are included in this repository
-ADNI and NACC datasets are not distributed due to controlled access policies
-Data access instructions are provided in:
-docs/data_access_note.md
-Setup
+- Competitive performance compared to standard survival models (Cox, RSF, DeepSurv)  
+- Clinically meaningful risk stratification via Kaplan–Meier analysis  
+- Robustness under simulated missing data conditions  
+- Consistent performance in external validation (NACC cohort)  
+
+---
+
+## Reproducibility
+
+- All code, figures, and tables are included in this repository  
+- ADNI and NACC datasets are not distributed due to controlled access policies  
+- Data access instructions are provided in:  
+  `docs/data_access_note.md`  
+
+---
+
+## Setup
 
 Create the environment:
 
-conda env create -f environment.yml
+`conda env create -f environment.yml`
 
 Activate it:
 
-conda activate <env_name>
+`conda activate <env_name>`
 
-Dependencies are also listed in requirements.txt.
+Dependencies are also listed in `requirements.txt`.
 
-Contact
+---
+
+## Contact
 
 📧 liqirui019@gmail.com
