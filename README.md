@@ -87,29 +87,32 @@ The repository is organized around a paper-oriented workflow:
   Placeholder for processed data (not included due to access restrictions).
 
 ---
-```markdown
-## Key Scripts (Reproducibility)
 
-The main pipeline can be reproduced using:
+Key Scripts (Reproducibility)
 
-```bash
-python scripts/01_build_adni_cohort.py
-python scripts/02_build_labels.py
-python scripts/03_build_modules.py
-python scripts/04_make_splits.py
+The main pipeline consists of the following steps:
 
-# Baseline models
-python scripts/21_run_baseline_deepsurv.py
+Data preprocessing and cohort construction
 
-# Modular framework analysis
-python scripts/22_run_modular_ablation_v2.py
+scripts/01_build_adni_cohort.py
+scripts/02_build_labels.py
+scripts/03_build_modules.py
+scripts/04_make_splits.py
 
-Outputs are generated in:
+Baseline model
 
-results/figures/
-results/tables/
-results/models/
+scripts/21_run_baseline_deepsurv.py
 
+Modular framework analysis
+
+scripts/22_run_modular_ablation_v2.py
+Outputs
+
+All results are automatically saved to:
+
+results/figures/ — figures for manuscript and analysis
+results/tables/ — quantitative results and comparisons
+results/models/ — trained model checkpoints
 Results
 
 The framework demonstrates:
@@ -118,15 +121,19 @@ Competitive performance compared to standard survival models (Cox, RSF, DeepSurv
 Clinically meaningful risk stratification via Kaplan–Meier analysis
 Robustness under simulated missing data conditions
 Consistent performance in external validation (NACC cohort)
-
 Reproducibility
-
-Code, figures, and tables are provided.
-ADNI and NACC datasets are not included due to controlled access requirements.
-Data access instructions are provided in docs/data_access_note.md.
-
+All code, figures, and tables are included in this repository
+ADNI and NACC datasets are not distributed due to controlled access policies
+Data access instructions are provided in:
+docs/data_access_note.md
 Setup
+
+Create the environment:
+
 conda env create -f environment.yml
+
+Activate it:
+
 conda activate <env_name>
 
 Dependencies are also listed in requirements.txt.
