@@ -11,7 +11,7 @@ Many existing studies rely on expensive or inconsistently available modalities s
 
 This project proposes a clinically realistic alternative:
 
-> Leveraging routinely collected longitudinal follow-up data, organized into interpretable modules and fused under explicit data availability constraints.
+Leveraging routinely collected longitudinal follow-up data, organized into interpretable modules and fused under explicit data availability constraints.
 
 The framework is designed to operate under irregular visits, missing measurements, and incomplete records — conditions commonly encountered in clinical practice.
 
@@ -110,16 +110,21 @@ results/figures/
 results/tables/
 results/models/
 
+Results
+
 The framework demonstrates:
 
 Competitive performance compared to standard survival models (Cox, RSF, DeepSurv)
 Clinically meaningful risk stratification via Kaplan–Meier analysis
 Robustness under simulated missing data conditions
 Consistent performance in external validation (NACC cohort)
+
 Reproducibility
+
 Code, figures, and tables are provided.
 ADNI and NACC datasets are not included due to controlled access requirements.
 Data access instructions are provided in docs/data_access_note.md.
+
 Setup
 conda env create -f environment.yml
 conda activate <env_name>
