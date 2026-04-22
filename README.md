@@ -4,162 +4,57 @@ A modular, availability-aware clinical AI framework for progression modeling in 
 
 ## Overview
 
-This repository implements a four-module clinical framework for survival-oriented MCI progression modeling **without relying on expensive biomarker modalities** such as PET, CSF, or MRI.
+This repository presents a clinically motivated framework for survival-oriented MCI progression modeling from routinely collected longitudinal follow-up data.
 
-The central idea is that routine longitudinal clinical follow-up data should not be treated as one undifferentiated feature matrix. Instead, patient information is organized into four clinically interpretable modules:
+Unlike many prediction pipelines that depend on expensive or inconsistently available biomarkers such as PET, CSF, or MRI, this framework focuses on **routine clinical follow-up information** and is designed for realistic settings where visits are irregular and module-level data may be incomplete.
 
-- **Baseline** — who the patient is at baseline
-- **Structure** — how the patient has been followed over time
-- **State** — the patient’s current clinical status
-- **Dynamics** — how the patient has recently changed
+To preserve clinical interpretability, longitudinal information is organized into four explicit modules:
 
-Each module is embedded separately and then fused under an explicit **availability-aware** mechanism, allowing the framework to preserve module identity while handling incomplete inputs.
+- **Baseline** — baseline patient profile  
+- **Structure** — follow-up pattern and visit organization  
+- **State** — current clinical status  
+- **Dynamics** — recent short-term change over time  
 
-This repository should be understood as a **framework paper repository**, not a claim of raw benchmark superiority over all simpler baselines. Its main value lies in:
+Each module is encoded independently and fused under an **availability-aware mechanism**, enabling progression modeling and patient-level representation learning under incomplete inputs.
 
-- modular clinical organization of longitudinal data
-- explicit handling of missing module availability
-- survival-oriented progression modeling
-- external transportability across cohorts
-- patient representation learning for downstream stratification
+## Framework overview
 
-## Clinical motivation
+![Framework overview](results/figures/figure1_overview.png)
 
-Predicting progression in MCI is difficult because:
+**Figure 1.** Overview of the proposed modular, availability-aware clinical framework. Routine longitudinal follow-up data are organized into clinically interpretable modules, encoded independently, and fused under explicit module availability to produce a unified patient representation for downstream prediction and analysis.
 
-- disease trajectories are heterogeneous
-- longitudinal follow-up is often incomplete or irregular
-- many predictive approaches depend on expensive biomarkers that are not routinely available
+## Study setting
 
-This project asks a practical question:
+- **Development cohort:** ADNI  
+- **External validation cohort:** NACC  
+- **Primary tasks:** survival risk prediction, 3-year progression classification, high-risk subgroup identification, subgroup discovery, and external validation  
 
-**Can routine longitudinal clinical follow-up data support meaningful progression modeling when they are explicitly organized into clinically interpretable modules and fused under module-availability constraints?**
+Because ADNI and NACC are controlled-access datasets, raw data and patient-level processed derivatives are **not distributed** in this repository.
 
-## Framework design
+For access notes, see [`docs/data_access_note.md`](docs/data_access_note.md).
 
-### Four clinical modules
+## Key results
 
-#### 1. Baseline module
-- age
-- sex
-- education
-- APOE4
-- baseline MMSE
-- baseline CDR global
+- **Internal test performance (ADNI):** C-index **0.792**  
+- **External validation (NACC):** C-index **0.746**  
+- Designed for **incomplete longitudinal clinical inputs**  
+- Uses **routine follow-up data** without requiring PET / CSF / MRI as mandatory inputs  
 
-#### 2. Structure module
-- number of visits
-- follow-up span
-- visits per year
-- median visit interval
-- variability of visit interval
+Additional figures and summary tables are provided in:
 
-#### 3. State module
-- state MMSE
-- state CDR global
-- state CDR-SB
-- state ADAS
-- state FAQ
-
-#### 4. Dynamics module
-- MMSE delta at 6 and 12 months
-- CDR-SB delta at 6 and 12 months
-- ADAS delta at 6 and 12 months
-- FAQ delta at 6 and 12 months
-
-## Model architecture
-
-The framework consists of five main stages:
-
-1. **Module-specific embedding**  
-   Each clinical module is encoded independently.
-
-2. **Module identity preservation**  
-   Module-type embeddings indicate whether a token corresponds to baseline, structure, state, or dynamics.
-
-3. **Availability-aware fusion**  
-   Module embeddings are fused using an attention-based transformer-lite encoder under an explicit availability mask.
-
-4. **Gated aggregation**  
-   Fusion weights are learned over available modules to generate a unified patient representation.
-
-5. **Multi-task prediction**  
-   The fused representation is used for:
-   - survival risk prediction
-   - 3-year progression classification
-   - high-risk classification
-
-The same learned representation is also used for:
-
-- latent-space visualization
-- clustering
-- Kaplan–Meier subgroup analysis
-
-## Data sources
-
-This project uses:
-
-- **ADNI** for model development and internal evaluation
-- **NACC** for external validation
-
-Because ADNI and NACC are controlled-access datasets, raw data and patient-level processed derivatives are **not distributed** in this public repository.
-
-See [`docs/data_access_note.md`](docs/data_access_note.md) for details.
-
-## Main results snapshot
-
-### Internal ADNI results
-- Best validation C-index: **0.801**
-- Test C-index: **0.792**
-- 3-year progression accuracy: **0.730**
-- High-risk classification accuracy: **0.690**
-
-### External NACC validation
-- External C-index: **0.746**
-- Clear Kaplan–Meier separation by model-predicted risk group in the external cohort
-
-### Conventional survival baselines on the same ADNI split
-- Cox proportional hazards: **0.817**
-- Random survival forest: **0.811**
-- DeepSurv: **0.811**
-- Proposed modular framework: **0.792**
-
-These results indicate that the repository should not be interpreted as claiming raw predictive superiority over all simpler baselines. Instead, its contribution lies in structured longitudinal modeling, tolerance to incomplete inputs, external transportability, and representation-level value.
-
-## Missingness robustness
-
-### Simulated state-module missingness
-Under removal of the entire **state** module in the ADNI test cohort:
-
-- Cox: **0.7403**  (Δ = -0.0767)
-- RSF: **0.6953**  (Δ = -0.1157)
-- DeepSurv: **0.6710**  (Δ = -0.1400)
-- Proposed framework: **0.7154**  (Δ = -0.0766)
-
-This indicates that the modular framework showed degradation comparable to Cox and smaller degradation than RSF and DeepSurv under loss of the clinically important state module.
-
-### Simulated random 30% feature missingness
-Under random masking of 30% of test-set feature entries:
-
-- Cox: **0.7949**  (Δ = -0.0221)
-- RSF: **0.8010**  (Δ = -0.0100)
-- DeepSurv: **0.7865**  (Δ = -0.0245)
-- Proposed framework: **0.7807**  (Δ = -0.0113)
-
-This indicates that under distributed partial missingness, the proposed framework retained discrimination comparable to the strongest baseline and showed greater stability than Cox and DeepSurv.
+- [`results/figures/`](results/figures/)
+- [`results/tables/`](results/tables/)
 
 ## Repository structure
 
 ```text
 AD_MCI_framework_v3/
 ├── README.md
-├── .gitignore
 ├── requirements.txt
 ├── environment.yml
-├── data_processed/
-│   └── README.md
 ├── docs/
 │   └── data_access_note.md
+├── data_processed/
 ├── results/
 │   ├── figures/
 │   ├── models/
@@ -167,92 +62,46 @@ AD_MCI_framework_v3/
 ├── scripts/
 └── src/
     ├── data/
-    ├── evaluation/
     ├── models/
-    ├── training/
-    ├── utils/
-    └── visualization/
+    └── training/
 
-    Directory roles
-src/data/
-Cohort construction, label generation, module building, dataset loading, preprocessing
-src/models/
-Module embedding, fusion encoder, prediction heads, unified framework model
-src/training/
-Training logic, losses, and masking strategy
-src/evaluation/
-Export of test outputs, clustering, Kaplan–Meier analysis, and robustness evaluation
-src/utils/
-Lightweight utility helpers
-src/visualization/
-Plotting utilities used for figures
-scripts/
-Runnable experiment entry points and baseline comparison scripts
+  Setup
+conda env create -f environment.yml
+conda activate <env_name>
+
+Dependencies are listed in requirements.txt and environment.yml.
+
+Pipeline
+Build ADNI cohort
+Construct labels
+Build modules (baseline / structure / state / dynamics)
+Train model
+Internal evaluation + KM analysis
+External validation (NACC)
+Baseline comparison and robustness
+Scripts
+
+Main pipeline:
+
+01_build_adni_cohort.py
+02_build_labels.py
+03_build_modules.py
+04_make_splits.py
+05_export_test_outputs.py
+06_cluster_and_km.py
+07_build_nacc_cohort.py
+Outputs
 results/figures/
-Final figure files used in the manuscript
 results/tables/
-Final summary tables used in the manuscript
 results/models/
-Lightweight training summaries and preprocessing statistics
-Minimal workflow
 
-A typical workflow is:
+Includes performance, KM curves, external validation, and robustness analysis.
 
-build ADNI cohort
-build labels
-build modules
-create train/validation/test splits
-train the modular framework
-export internal test outputs
-run external validation
-run missingness robustness analyses
-Key tables included in this release
-Main tables
-table1_cohort_characteristics.csv
-table2_internal_performance.csv
-table3_baseline_comparison.csv
-table4_module_missingness_robustness.csv
-Supplementary tables
-tableS1_ablation.csv
-tableS2_cluster_characteristics.csv
-tableS3_random30_missingness.csv
-Interpretation and scope
-
-This repository should be understood as a research framework for modular clinical progression modeling.
-
-It is not currently:
-
-a deployed clinical decision support tool
-a production-ready software package
-a claim of universal superiority over conventional complete-data baselines
-
-Instead, it demonstrates the feasibility of:
-
-organizing routine longitudinal data into clinically meaningful modules
-explicitly modeling incomplete module availability
-generating survival-oriented progression risk
-learning patient representations for downstream stratification
-transferring a frozen framework to an external cohort
-Limitations
-
-Current limitations include:
-
-retrospective study design
-imperfect cross-cohort harmonization between ADNI and NACC
-incomplete external feature overlap
-no claim of complete-data superiority over all simpler baselines
-dynamics features based on simple delta engineering may contribute unstable value
-no prospective validation or deployment-focused calibration analysis yet
 Reproducibility
 
-This public repository includes code, figure files, and summary tables. It does not include raw ADNI/NACC data, patient-level processed derivatives, patient-level embeddings, or full model checkpoints.
+Code, figures, and tables are provided.
+ADNI/NACC data are not included (controlled access required).
 
-To reproduce the full pipeline, users must:
+Contact
 
-obtain authorized access to ADNI and/or NACC
-place source files locally according to the expected structure
-rebuild cohorts and modules using the provided scripts
-rerun training and evaluation steps
-Citation
-
-If you use this code or framework, please cite the associated manuscript once available.
+📧 liqirui019@gmail.com
