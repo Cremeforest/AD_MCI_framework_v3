@@ -7,14 +7,13 @@ A modular, availability-aware clinical AI framework for longitudinal progression
 ## Overview
 
 Progression from mild cognitive impairment (MCI) to Alzheimer's disease is heterogeneous, time-dependent, and difficult to model in real-world clinical settings.  
-Many existing studies rely on expensive or inconsistently available modalities such as PET, CSF, or MRI, limiting their applicability.
+Many existing studies rely on expensive or inconsistently available modalities such as PET, CSF, or MRI, limiting their applicability in routine practice.
 
-This project proposes a clinically realistic alternative:
+In contrast, this project focuses on a clinically realistic and scalable alternative:
 
-Leveraging routinely collected longitudinal follow-up data, organized into interpretable modules and fused under explicit data availability constraints.
+**Leveraging routinely collected, primary-care-level clinical data**, organized into interpretable longitudinal modules and fused under explicit data availability constraints.
 
-The framework is designed to operate under irregular visits, missing measurements, and incomplete records — conditions commonly encountered in clinical practice.
-
+The framework is designed to operate under real-world conditions — including irregular visits, missing measurements, and incomplete records — which are commonly encountered in everyday clinical settings.
 ---
 
 ## Framework
