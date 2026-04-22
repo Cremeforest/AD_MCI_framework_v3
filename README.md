@@ -1,106 +1,131 @@
 # AD_MCI_framework_v3
 
-A modular, availability-aware clinical AI framework for progression modeling in mild cognitive impairment (MCI) using routine longitudinal follow-up data.
+A modular, availability-aware clinical AI framework for longitudinal progression modeling in mild cognitive impairment (MCI) using routine follow-up data.
+
+---
 
 ## Overview
 
-This repository presents a clinically motivated framework for survival-oriented MCI progression modeling from routinely collected longitudinal follow-up data.
+Progression from mild cognitive impairment (MCI) to Alzheimer's disease is heterogeneous, time-dependent, and difficult to model in real-world clinical settings.  
+Many existing studies rely on expensive or inconsistently available modalities such as PET, CSF, or MRI, limiting their applicability.
 
-Unlike many prediction pipelines that depend on expensive or inconsistently available biomarkers such as PET, CSF, or MRI, this framework focuses on **routine clinical follow-up information** and is designed for realistic settings where visits are irregular and module-level data may be incomplete.
+This project proposes a clinically realistic alternative:
 
-To preserve clinical interpretability, longitudinal information is organized into four explicit modules:
+> Leveraging routinely collected longitudinal follow-up data, organized into interpretable modules and fused under explicit data availability constraints.
 
-- **Baseline** — baseline patient profile  
-- **Structure** — follow-up pattern and visit organization  
-- **State** — current clinical status  
-- **Dynamics** — recent short-term change over time  
+The framework is designed to operate under irregular visits, missing measurements, and incomplete records — conditions commonly encountered in clinical practice.
 
-Each module is encoded independently and fused under an **availability-aware mechanism**, enabling progression modeling and patient-level representation learning under incomplete inputs.
+---
 
-## Framework overview
+## Framework
 
 ![Framework overview](results/figures/figure1_overview.png)
 
-**Figure 1.** Overview of the proposed modular, availability-aware clinical framework. Routine longitudinal follow-up data are organized into clinically interpretable modules, encoded independently, and fused under explicit module availability to produce a unified patient representation for downstream prediction and analysis.
+**Figure 1.** Overview of the proposed modular, availability-aware clinical framework.  
+Patient data are decomposed into clinically interpretable modules, encoded independently, and fused using availability-aware mechanisms to produce unified representations for downstream prediction.
 
-## Study setting
+---
 
-- **Development cohort:** ADNI  
-- **External validation cohort:** NACC  
-- **Primary tasks:** survival risk prediction, 3-year progression classification, high-risk subgroup identification, subgroup discovery, and external validation  
+## Key Idea
 
-Because ADNI and NACC are controlled-access datasets, raw data and patient-level processed derivatives are **not distributed** in this repository.
+Instead of treating longitudinal data as a single feature matrix, patient information is structured into four modules:
 
-For access notes, see [`docs/data_access_note.md`](docs/data_access_note.md).
+- **Baseline** — static patient profile  
+- **Structure** — visit frequency and temporal organization  
+- **State** — current clinical condition  
+- **Dynamics** — short-term progression trends  
 
-## Key results
+Each module captures a distinct clinical aspect and can be flexibly combined depending on data availability.
 
-- **Internal test performance (ADNI):** C-index **0.792**  
-- **External validation (NACC):** C-index **0.746**  
-- Designed for **incomplete longitudinal clinical inputs**  
-- Uses **routine follow-up data** without requiring PET / CSF / MRI as mandatory inputs  
+---
 
-Additional figures and summary tables are provided in:
+## Pipeline Overview
 
-- [`results/figures/`](results/figures/)
-- [`results/tables/`](results/tables/)
+The full workflow follows a clinically motivated pipeline:
 
-## Repository structure
+1. **Cohort construction (ADNI)**  
+   Identify baseline MCI subjects and construct longitudinal follow-up trajectories.
 
-```text
-AD_MCI_framework_v3/
-├── README.md
-├── requirements.txt
-├── environment.yml
-├── docs/
-│   └── data_access_note.md
-├── data_processed/
-├── results/
-│   ├── figures/
-│   ├── models/
-│   └── tables/
-├── scripts/
-└── src/
-    ├── data/
-    ├── models/
-    └── training/
+2. **Label generation**  
+   Define time-to-event outcomes for MCI-to-AD progression.
 
-  Setup
-conda env create -f environment.yml
-conda activate <env_name>
+3. **Module construction**  
+   Extract and organize patient data into baseline, structure, state, and dynamics modules.
 
-Dependencies are listed in requirements.txt and environment.yml.
+4. **Model training**  
+   Train survival models based on modular representations.
 
-Pipeline
-Build ADNI cohort
-Construct labels
-Build modules (baseline / structure / state / dynamics)
-Train model
-Internal evaluation + KM analysis
-External validation (NACC)
-Baseline comparison and robustness
-Scripts
+5. **Evaluation**
+   - Internal validation (ADNI)
+   - Kaplan–Meier survival analysis
+   - External validation (NACC)
+   - Baseline comparison (Cox / RSF / DeepSurv)
+   - Missing-data robustness analysis
 
-Main pipeline:
+---
 
-01_build_adni_cohort.py
-02_build_labels.py
-03_build_modules.py
-04_make_splits.py
-05_export_test_outputs.py
-06_cluster_and_km.py
-07_build_nacc_cohort.py
-Outputs
+## Repository Structure
+
+The repository is organized around a paper-oriented workflow:
+
+- **src/**  
+  Core implementation of the modular framework, including data processing, model architecture, and training logic.
+
+- **scripts/**  
+  End-to-end pipeline scripts for cohort construction, feature generation, model training, and evaluation.
+
+- **results/**  
+  Reproducible outputs corresponding to the manuscript:
+  - figures (main and supplementary)
+  - tables (performance, ablation, robustness)
+  - model summaries
+
+- **docs/**  
+  Additional documentation, including data access notes.
+
+- **data_processed/**  
+  Placeholder for processed data (not included due to access restrictions).
+
+---
+
+## Key Scripts (Reproducibility)
+
+The main pipeline can be reproduced using:
+
+```bash
+python scripts/01_build_adni_cohort.py
+python scripts/02_build_labels.py
+python scripts/03_build_modules.py
+python scripts/04_make_splits.py
+
+# Baseline models
+python scripts/21_run_baseline_deepsurv.py
+
+# Modular framework analysis
+python scripts/22_run_modular_ablation_v2.py
+
+Outputs are generated in:
+
 results/figures/
 results/tables/
 results/models/
+Results
 
-Includes performance, KM curves, external validation, and robustness analysis.
+The framework demonstrates:
 
+Competitive performance compared to standard survival models (Cox, RSF, DeepSurv)
+Clinically meaningful risk stratification via Kaplan–Meier analysis
+Robustness under simulated missing data conditions
+Consistent performance in external validation (NACC cohort)
 Reproducibility
-
 Code, figures, and tables are provided.
-ADNI/NACC data are not included (controlled access required).
+ADNI and NACC datasets are not included due to controlled access requirements.
+Data access instructions are provided in docs/data_access_note.md.
+Setup
+conda env create -f environment.yml
+conda activate <env_name>
+
+Dependencies are also listed in requirements.txt.
 
 Contact
 
