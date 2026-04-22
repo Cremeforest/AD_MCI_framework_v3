@@ -109,7 +109,6 @@ Outputs are generated in:
 results/figures/
 results/tables/
 results/models/
-Results
 
 The framework demonstrates:
 
