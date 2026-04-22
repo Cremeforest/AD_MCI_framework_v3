@@ -120,12 +120,11 @@ All results are automatically saved to:
 
 ## Results
 
-The framework demonstrates:
-
-- Competitive performance compared to standard survival models (Cox, RSF, DeepSurv)  
-- Clinically meaningful risk stratification via Kaplan–Meier analysis  
-- Robustness under simulated missing data conditions  
-- Consistent performance in external validation (NACC cohort)  
+- **Internal performance (ADNI):** C-index 0.792  
+- **External validation (NACC):** C-index 0.746  
+- Competitive with standard survival models (Cox, RSF, DeepSurv)  
+- Stable performance under both structured module removal and random missingness  
+- Clinically meaningful risk stratification demonstrated by Kaplan–Meier analysis  
 
 ---
 
